@@ -15,5 +15,5 @@ imatOps <- function( imat1, imat2, operation="difference" ){
     return(out)
   })
   names(outmat) <- n1
-
+  return(outmat)
 }
