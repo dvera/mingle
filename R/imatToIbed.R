@@ -8,7 +8,7 @@ imatToIbed <- function( imat , binsize , outname , minInteractions=1 , threads=g
 
   if(single && missing(outname)){stop("must supply outname if input is not a named list of lists of chromosome matrices")}
 
-  if(any(is.null(names(imat)))){ stop("matrices in supplied imat list must have names")}
+  #if(any(is.null(names(imat)))){ stop("matrices in supplied imat list must have names")}
 
   if(single){
     imat <- list(imat)
