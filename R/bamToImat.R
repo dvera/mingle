@@ -6,7 +6,7 @@ bamToImat <- function(bedFile , binsize , minInteractions=1 , minQual=20 , threa
   
   if(any(file_ext(bedFile)=="bam")){
     cmdStrings <- paste(
-      "bedtools bamtobed -bedpe -i",bedFile," | awk '{",
+      "bedtools bamtobed -bedpe -i",bedFile,"2>/dev/null | awk '{",
         "if($1==$4 && $8 >= ",minQual,"){",
           "left=int($2/",binsize,");",
           "right=int($6/",binsize,");",
