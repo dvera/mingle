@@ -25,8 +25,22 @@ bamToImat <- function(bedFile , binsize , minInteractions=1 , minQual=20 , threa
           "left=int($2/",binsize,");",
           "right=int($6/",binsize,");",
           "if(left<right){print $1,left,right}",
+          "else{print $2,right,left}",
+        "}}' OFS='\t' | sort -T . -S 100G -k1,1 -k2,2n -k3,3n | uniq -c | awk '{",
+          "if($1>=",minInteractions,"){",
+            "print $2,$3,$4,$1",
+          "}",
+        "}' OFS='\t'"
+    )
+  } else if (any(file_ext(bedFile)=="gz")){
+    cmdStrings <- paste(
+      "zcat",bedFile," | awk '{",
+        "if($2==$4){",
+          "left=int($3/",binsize,");",
+          "right=int($5/",binsize,");",
+          "if(left<right){print $1,left,right}",
           "else{print $1,right,left}",
-        "}}' OFS='\t' | sort -T . -S 10G -k1,1 -k2,2n -k3,3n | uniq -c | awk '{",
+        "}}' OFS='\t' | sort -T . -S 100G -k1,1 -k2,2n -k3,3n | uniq -c | awk '{",
           "if($1>=",minInteractions,"){",
             "print $2,$3,$4,$1",
           "}",
